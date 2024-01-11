@@ -138,7 +138,7 @@ public static Book bookCreater(String s,int stock){
     if (s.equalsIgnoreCase("FantasyBook")){
         return new FantasyBook(stock);
     } else if (s.equalsIgnoreCase("MysteryBook")) {
-        return new FantasyBook(stock);
+        return new MysteryBook(stock);
     } else if (s.equalsIgnoreCase("PoetryBook")) {
         return new PoetryBook(stock);
     }else return null;
@@ -147,6 +147,7 @@ public static Book bookCreater(String s,int stock){
 
 public class Library_Management_System {
     public static void main(String[] args) {
+        LibraryManager libraryManager = LibraryManager.getInstance();
         // Creating observers (librarians)
         Observer librarian1 = new LibraryObserver("Librarian 1");
         Observer librarian2 = new LibraryObserver("Librarian 2");
@@ -164,5 +165,19 @@ public class Library_Management_System {
         stockTracker.updateStock(30);
 
 
+    }
+}
+class LibraryManager{
+    private static LibraryManager instance = new LibraryManager();
+    private LibraryManager(){};
+    public static LibraryManager getInstance(){
+        return instance;
+    }
+    public static void manageLibrary(){
+        System.out.println("Library management tasks are being handled.");
+    }
+    public void displaySystemStatus() {
+        System.out.println("Library Manager is operational.");
+        // Add more status information as needed
     }
 }

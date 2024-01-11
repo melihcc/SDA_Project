@@ -79,6 +79,6 @@ public class Library_Management_System {
         stockTracker.setBookStock("Introduction to Java", 50);
 
         // Updating stock and notifying observers
-        stockTracker.updateStock(40);
+        stockTracker.updateStock(30);
     }
 }

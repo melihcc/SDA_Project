@@ -30,12 +30,14 @@ interface Subject {
 // Concrete Subject class
 class BookStockTracker implements Subject {
     private List<Observer> observers = new ArrayList<>();
+    Book book;
     private String bookTitle;
     private int stock;
 
-    public void setBookStock(String title, int initialStock) {
-        this.bookTitle = title;
-        this.stock = initialStock;
+    public void setBookStock(Book book) {
+        this.bookTitle = book.getBookGenre();
+        this.stock = book.getStock();
+        this.book=book;
         notifyObservers(bookTitle, stock);
     }
 
@@ -58,8 +60,89 @@ class BookStockTracker implements Subject {
 
     public void updateStock(int newStock) {
         this.stock = newStock;
+        book.updateStock(newStock);
         notifyObservers(bookTitle, stock);
     }
+}
+interface Book{
+    int getStock();
+    void updateStock(int stock);
+    String getBookGenre();
+}
+class FantasyBook implements Book{
+    int stock;
+    String Genre="Fantasy";
+
+    public FantasyBook(int stock){
+       this.stock=stock;
+    }
+    public void updateStock(int newStock){
+        this.stock=newStock;
+    }
+
+    @Override
+    public int getStock() {
+        return this.stock;
+    }
+
+    @Override
+    public String getBookGenre() {
+        return this.Genre;
+    }
+}
+class MysteryBook implements Book{
+    int stock;
+    String Genre="Mystery";
+
+    public MysteryBook(int stock){
+        this.stock=stock;
+    }
+    public void updateStock(int newStock){
+        this.stock=newStock;
+    }
+
+    @Override
+    public int getStock() {
+        return this.stock;
+    }
+
+    @Override
+    public String getBookGenre() {
+        return this.Genre;
+    }
+}
+class PoetryBook implements Book{
+    int stock;
+    String Genre="Poetry";
+
+    public PoetryBook(int stock){
+        this.stock=stock;
+    }
+    public void updateStock(int newStock){
+        this.stock=newStock;
+    }
+
+    @Override
+    public int getStock() {
+        return this.stock;
+    }
+
+    @Override
+    public String getBookGenre() {
+        return this.Genre;
+    }
+}
+class Factory
+{
+public static Book bookCreater(String s,int stock){
+    if (s.equalsIgnoreCase("FantasyBook")){
+        return new FantasyBook(stock);
+    } else if (s.equalsIgnoreCase("MysteryBook")) {
+        return new FantasyBook(stock);
+    } else if (s.equalsIgnoreCase("PoetryBook")) {
+        return new PoetryBook(stock);
+    }else return null;
+}
 }
 
 public class Library_Management_System {
@@ -74,11 +157,12 @@ public class Library_Management_System {
         // Registering observers to the subject
         stockTracker.registerObserver(librarian1);
         stockTracker.registerObserver(librarian2);
-
         // Setting initial stock for a book
-        stockTracker.setBookStock("Introduction to Java", 50);
+        stockTracker.setBookStock(Factory.bookCreater("FantasyBook",50));
 
         // Updating stock and notifying observers
         stockTracker.updateStock(30);
+
+
     }
 }

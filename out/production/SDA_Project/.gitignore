@@ -7,3 +7,8 @@
 /LibraryObserver.class
 /Observer.class
 /Subject.class
+/Book.class
+/Factory.class
+/FantasyBook.class
+/MysteryBook.class
+/PoetryBook.class

@@ -40,6 +40,9 @@ class BookStockTracker implements Subject {
         this.book=book;
         notifyObservers(bookTitle, stock);
     }
+    public Book getBook(){
+        return book;
+    }
 
     @Override
     public void registerObserver(Observer observer) {
@@ -151,6 +154,7 @@ public class Library_Management_System {
         // Creating observers (librarians)
         Observer librarian1 = new LibraryObserver("Librarian 1");
         Observer librarian2 = new LibraryObserver("Librarian 2");
+        Book fantasyBook = Factory.bookCreater("FantasyBook",50);
 
         // Creating subject (book stock tracker)
         BookStockTracker stockTracker = new BookStockTracker();
@@ -159,7 +163,7 @@ public class Library_Management_System {
         stockTracker.registerObserver(librarian1);
         stockTracker.registerObserver(librarian2);
         // Setting initial stock for a book
-        stockTracker.setBookStock(Factory.bookCreater("FantasyBook",50));
+        stockTracker.setBookStock(fantasyBook);
 
         // Updating stock and notifying observers
         stockTracker.updateStock(30);
@@ -179,5 +183,19 @@ class LibraryManager{
     public void displaySystemStatus() {
         System.out.println("Library Manager is operational.");
        
+    }
+}
+class User{
+    BookStockTracker stockTracker;
+    Book book;
+    public User(BookStockTracker stockTracker){
+        this.stockTracker=stockTracker;
+        book = stockTracker.getBook();
+    }
+    public void borrowBook(){
+        book.updateStock(book.getStock()-1);
+    }
+    public void returnBook(Book book){
+        book.updateStock(book.getStock()+1);
     }
 }
